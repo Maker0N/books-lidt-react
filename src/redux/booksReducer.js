@@ -15,12 +15,12 @@ const initialState = {
   isEdit: false,
 }
 
-// if (JSON.parse(localStorage.getItem('localStore')) === null) {
-//   localStorage.setItem('localStore', JSON.stringify(initialState))
-// }
-// const localState = JSON.parse(localStorage.getItem('localStore')).booksReducer
+if (JSON.parse(localStorage.getItem('localStore')) === null) {
+  localStorage.setItem('localStore', JSON.stringify(initialState))
+}
+const localState = JSON.parse(localStorage.getItem('localStore')).booksReducer
 
-const booksReducer = (state = initialState, action) => {
+const booksReducer = (state = localState, action) => {
   switch (action.type) {
     case SHOW_HIDE_FORM:
       return { ...state, formVisible: action.payload }
