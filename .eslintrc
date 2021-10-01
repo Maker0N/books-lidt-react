@@ -6,7 +6,8 @@
     "document": true
   },
   "rules": {
-    "semi": "off"
+    "semi": "off",
+    "react/prop-types": "off"
   },
   "env": {
         "browser": true,
