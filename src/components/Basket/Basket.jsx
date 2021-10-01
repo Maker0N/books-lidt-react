@@ -33,7 +33,6 @@ const Basket = () => {
                 const localStore = store.getState()
                 localStorage.setItem('localStore', JSON.stringify(localStore))
               }, 1000)
-              // localStorage.setItem('deletedBooks', null)
             }}
           >
             ^
