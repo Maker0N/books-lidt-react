@@ -50,7 +50,11 @@ const Main = ({ books, activeBook }) => {
             if (JSON.parse(localStorage.getItem('deletedBooks')) === null) {
               localStorage.setItem('deletedBooks', JSON.stringify([book]))
             } else {
-              localStorage.setItem('deletedBooks', JSON.stringify([...JSON.parse(localStorage.getItem('deletedBooks')), book]))
+              const deletedBooks = JSON.parse(localStorage.getItem('deletedBooks'))
+              const deletedID = deletedBooks.map((it) => it.id)
+                .reduce((acc, rec) => (rec > acc ? rec : acc), 0) + 1
+              book.id = deletedID
+              localStorage.setItem('deletedBooks', JSON.stringify([...deletedBooks, book]))
             }
             setTimeout(() => {
               const localStore = store.getState()

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import {
-  addBook, showHideForm, editBook,
-} from '../../redux/booksReducer'
+import { addBook, showHideForm, editBook } from '../../redux/booksReducer'
 import store from '../../redux/store'
 
 const Form = ({
@@ -12,12 +10,18 @@ const Form = ({
 
   const [book, setBook] = useState({})
   const [bookEdit, setBookEdit] = useState({})
-  console.log(isEdit, book, bookEdit)
 
   useEffect(() => {
-    const [{ author }] = books.filter((it) => it.id === activeBook)
-    const [{ title }] = books.filter((it) => it.id === activeBook)
-    setBookEdit({ id: activeBook, author, title })
+    if (activeBook) {
+      const [{ author }] = books.filter((it) => it.id === activeBook)
+      const [{ title }] = books.filter((it) => it.id === activeBook)
+      setBookEdit({ id: activeBook, author, title })
+    }
+    if (!activeBook) {
+      const author = ''
+      const title = ''
+      setBookEdit({ id: activeBook, author, title })
+    }
   }, [activeBook])
 
   useEffect(() => {
@@ -42,7 +46,9 @@ const Form = ({
     >
       {isEdit
         ? `Редактирование книги ${activeBook}!`
-        : `Будет присвоен номер по каталогу: ${books.length === 0 ? 1 : books[books.length - 1].id + 1}`}
+        : `Будет присвоен номер по каталогу: ${
+          books.length === 0 ? 1 : books[books.length - 1].id + 1
+        }`}
       <span>Автор</span>
       <input
         id="autor"
@@ -64,47 +70,48 @@ const Form = ({
         onChange={(e) => {
           if (isEdit) {
             setBookEdit({ ...bookEdit, title: e.target.value })
+          } else {
+            setBook({ ...book, title: e.target.value })
           }
-          setBook({ ...book, title: e.target.value })
         }}
       />
-      {isEdit
-        ? (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              dispatch(editBook(bookEdit))
-              dispatch(showHideForm('formUp'))
-              setTimeout(() => {
-                const localStore = store.getState()
-                localStorage.setItem('localStore', JSON.stringify(localStore))
-              }, 1000)
-            }}
-          >
-            Редактировать
-          </button>
-        )
-        : (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              if (book.author !== '' && book.title !== '') {
-                dispatch(addBook(book))
-              }
-              dispatch(showHideForm('formUp'))
-              setTimeout(() => {
-                const localStore = store.getState()
-                localStorage.setItem('localStore', JSON.stringify(localStore))
-              }, 1000)
-            }}
-          >
-            Добавить
-          </button>
-        )}
+      {isEdit ? (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            // if (bookEdit.author && bookEdit.title) {
+            dispatch(editBook(bookEdit))
+            dispatch(showHideForm('formUp'))
+            setTimeout(() => {
+              const localStore = store.getState()
+              localStorage.setItem('localStore', JSON.stringify(localStore))
+            }, 1000)
+            // }
+          }}
+        >
+          Редактировать
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            if (book.author !== '' && book.title !== '') {
+              dispatch(addBook(book))
+            }
+            dispatch(showHideForm('formUp'))
+            setTimeout(() => {
+              const localStore = store.getState()
+              localStorage.setItem('localStore', JSON.stringify(localStore))
+            }, 1000)
+          }}
+        >
+          Добавить
+        </button>
+      )}
     </div>
   )
 }

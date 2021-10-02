@@ -6,7 +6,7 @@ import store from '../../redux/store'
 const Basket = () => {
   const dispatch = useDispatch()
   const deletedBook = JSON.parse(localStorage.getItem('deletedBooks'))
-  if (deletedBook === null || deletedBook === []) {
+  if (deletedBook === null || deletedBook.length === 0) {
     return (
       <div className="basket">
         Корзина пуста
@@ -36,6 +36,17 @@ const Basket = () => {
             }}
           >
             ^
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault()
+              const deletedBooks = JSON.parse(localStorage.getItem('deletedBooks'))
+              const newBasket = deletedBooks.filter((item) => item.id !== it.id)
+              localStorage.setItem('deletedBooks', JSON.stringify(newBasket))
+            }}
+          >
+            X
           </button>
         </div>
       ))}

@@ -4,7 +4,7 @@ const initialState = {
     { id: 2, author: 'Лю Цысинь', title: 'Задача трёх тел' },
   ],
   formVisible: 'formUp',
-  activeBook: null,
+  activeBook: 1,
   isEdit: false,
 }
 

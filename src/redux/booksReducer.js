@@ -38,6 +38,7 @@ const booksReducer = (state = localStore, action) => {
         ...state,
         ...state,
         books: state.books.filter((it) => it.id !== action.payload),
+        activeBook: null,
       }
 
     case ACTIVE_BOOK_ID:
