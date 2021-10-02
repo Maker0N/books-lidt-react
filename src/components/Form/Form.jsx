@@ -18,14 +18,12 @@ const Form = ({
       setBookEdit({ id: activeBook, author, title })
     }
     if (!activeBook) {
-      const author = ''
-      const title = ''
-      setBookEdit({ id: activeBook, author, title })
+      setBookEdit({ id: activeBook, author: '', title: '' })
     }
   }, [activeBook])
 
   useEffect(() => {
-    setBook({ ...book, id: activeBook })
+    setBook({ id: activeBook, author: '', title: '' })
   }, [activeBook])
 
   return (

@@ -9,6 +9,10 @@ body {
 
 button {
   margin: 5px;
+  border: none;
+  padding: 5px;
+  background: #AFEEEE;
+  border-radius: 3px;
 }
 
 .container {
@@ -31,8 +35,7 @@ button {
 
 .nav {
   width: 25%;
-  background: #90EE90;
-  padding-top: 10px;
+  background: #FF8C00;
 }
 
 .nav-item {
@@ -137,7 +140,8 @@ button {
   right: 0;
   top: 550px;
   background: coral;
-  width: 300px;
+  max-width: 500px;
+  min-width: 300px;
   height: 200px;
   box-shadow: -5px -5px 7px #808080;
   border-radius: 30px;
@@ -145,9 +149,18 @@ button {
 }
 
 .basket > div {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 .basket > div > div {
-  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.basket > div > div > button {
+  width: 20px;
+  height: 20px;
+  padding: 0;
 }
