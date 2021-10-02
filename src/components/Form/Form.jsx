@@ -10,7 +10,15 @@ const Form = ({
 }) => {
   const dispatch = useDispatch()
 
-  const [book, setBook] = useState({ id: null, author: '', title: '' })
+  const [book, setBook] = useState({})
+  const [bookEdit, setBookEdit] = useState({})
+  console.log(isEdit, book, bookEdit)
+
+  useEffect(() => {
+    const [{ author }] = books.filter((it) => it.id === activeBook)
+    const [{ title }] = books.filter((it) => it.id === activeBook)
+    setBookEdit({ id: activeBook, author, title })
+  }, [activeBook])
 
   useEffect(() => {
     setBook({ ...book, id: activeBook })
@@ -39,15 +47,24 @@ const Form = ({
       <input
         id="autor"
         type="text"
+        value={isEdit ? bookEdit.author : book.author}
         onChange={(e) => {
-          setBook({ ...book, author: e.target.value })
+          if (isEdit) {
+            setBookEdit({ ...bookEdit, author: e.target.value })
+          } else {
+            setBook({ ...book, author: e.target.value })
+          }
         }}
       />
       <span>Название</span>
       <input
         id="title"
         type="text"
+        value={isEdit ? bookEdit.title : book.title}
         onChange={(e) => {
+          if (isEdit) {
+            setBookEdit({ ...bookEdit, title: e.target.value })
+          }
           setBook({ ...book, title: e.target.value })
         }}
       />
@@ -58,7 +75,7 @@ const Form = ({
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
-              dispatch(editBook(book))
+              dispatch(editBook(bookEdit))
               dispatch(showHideForm('formUp'))
               setTimeout(() => {
                 const localStore = store.getState()

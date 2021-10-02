@@ -6,8 +6,6 @@ import store from '../../redux/store'
 const Main = ({ books, activeBook }) => {
   const dispatch = useDispatch()
 
-  // localStorage.setItem('deletedBooks', JSON.stringify([]))
-  // let localDeleted
   const [book] = books.filter((it) => it.id === activeBook)
 
   if (activeBook === null) {
