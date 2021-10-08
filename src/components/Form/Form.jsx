@@ -97,6 +97,10 @@ const Form = ({
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
+            localStorage.setItem('localFlash', JSON.stringify(true))
+            setTimeout(() => {
+              localStorage.setItem('localFlash', JSON.stringify(false))
+            }, 1200)
             if (book.author !== '' && book.title !== '') {
               dispatch(addBook(book))
             }

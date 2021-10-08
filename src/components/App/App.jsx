@@ -5,6 +5,7 @@ import Main from '../Main/Main'
 import Nav from '../Nav/Nav'
 import Form from '../Form/Form'
 import Basket from '../Basket/Basket'
+import Flash from '../Flash/Flash'
 import { showHideForm } from '../../redux/booksReducer'
 import '../../styles/main.css'
 
@@ -13,6 +14,10 @@ const App = () => {
   const {
     formVisible, books, activeBook, isEdit,
   } = useSelector((s) => s.booksReducer)
+
+  if (JSON.parse(localStorage.getItem('localFlash')) === null) {
+    localStorage.setItem('localFlash', JSON.stringify(false))
+  }
 
   return (
     <div
@@ -30,6 +35,7 @@ const App = () => {
         }
       }}
     >
+      <Flash />
       <Header formVisible={formVisible} books={books} />
       <Form formVisible={formVisible} books={books} activeBook={activeBook} isEdit={isEdit} />
       <div className="main-nav">

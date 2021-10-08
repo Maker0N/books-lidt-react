@@ -23,7 +23,9 @@ button {
 }
 
 .header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
   z-index: 100;
   display: flex;
   justify-content: space-around;
@@ -36,6 +38,7 @@ button {
 .nav {
   width: 25%;
   background: #FF8C00;
+  padding-top: 74px;
 }
 
 .nav-item {
@@ -63,8 +66,14 @@ button {
 
 .active:hover {
   background: #F0E68C;
-  transform: translateX(0);
+  transform: translateY(-10);
   cursor: pointer;
+}
+
+.last {
+  display: flex;
+  height: 100%;
+  background: #F0E68C;
 }
 
 .main {
@@ -75,9 +84,11 @@ button {
   background: #F0E68C;
   box-shadow: 3px -5px 3px #808080;
   padding: 20px;
+  padding-top: 74px;
 }
 
 .main > div {
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
@@ -163,4 +174,26 @@ button {
   width: 20px;
   height: 20px;
   padding: 0;
+}
+
+.flash {
+  position: absolute;
+  display: inline-block;
+  width: 100vw;
+  height: 100vh;
+  background: #FFF;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.on {
+  position: absolute;
+  display: inline-block;
+  opacity: 1;
+  transition: all 0.5s ease;
+  z-index: 200;
+}
+
+.off {
+  display: none;
 }

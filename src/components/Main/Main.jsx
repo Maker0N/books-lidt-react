@@ -9,7 +9,11 @@ const Main = ({ books, activeBook }) => {
   const [book] = books.filter((it) => it.id === activeBook)
 
   if (activeBook === null) {
-    return <main className="main">Выберите книгу</main>
+    return (
+      <main className="main">
+        <div>Выберите книгу</div>
+      </main>
+    )
   }
 
   if (books.length === 0) {
@@ -50,6 +54,10 @@ const Main = ({ books, activeBook }) => {
             if (JSON.parse(localStorage.getItem('deletedBooks')) === null) {
               localStorage.setItem('deletedBooks', JSON.stringify([book]))
             } else {
+              localStorage.setItem('localFlash', JSON.stringify(true))
+              setTimeout(() => {
+                localStorage.setItem('localFlash', JSON.stringify(false))
+              }, 1200)
               const deletedBooks = JSON.parse(localStorage.getItem('deletedBooks'))
               const deletedID = deletedBooks.map((it) => it.id)
                 .reduce((acc, rec) => (rec > acc ? rec : acc), 0) + 1
